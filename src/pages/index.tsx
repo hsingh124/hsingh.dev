@@ -1,6 +1,7 @@
 import * as React from "react"
 import { StaticImage } from "gatsby-plugin-image"
 import Navbar from "../components/navbar"
+import Footer from "../components/footer"
 
 const HomePage = () => {
 	return (
@@ -32,8 +33,7 @@ const HomePage = () => {
 					</p>
 				</div>
 			</div>
-			<div className="w-screen h-5 bg-blue-400">
-			</div>
+			<Footer />
 		</div>
 	)
 }
