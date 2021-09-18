@@ -2,7 +2,11 @@ import * as React from "react"
 
 const Navbar = () => {
 	return (
-		<div className="w-screen h-8 bg-blue-400">
+		<div>
+			<div className="w-screen h-10 bg-gray-50">
+
+			</div>
+			<hr className="bg-gray-700 h-0.5"></hr>
 		</div>
 	)
 }
