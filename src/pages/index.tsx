@@ -1,6 +1,6 @@
 import * as React from "react"
 import { StaticImage } from "gatsby-plugin-image"
-import Wrapper from "../components/Wrapper"
+import Wrapper from "../components/wrapper"
 
 const HomePage = () => {
 	return (

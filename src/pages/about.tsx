@@ -1,8 +1,8 @@
 import * as React from "react"
 import { StaticImage } from "gatsby-plugin-image"
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
-import Wrapper from "../components/Wrapper"
+import Navbar from "../components/navbar"
+import Footer from "../components/footer"
+import Wrapper from "../components/wrapper"
 
 export default function About() {
 	return (

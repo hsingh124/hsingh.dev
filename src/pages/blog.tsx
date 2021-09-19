@@ -4,8 +4,8 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import Navbar from "../components/Navbar"
-import Wrapper from "../components/Wrapper"
+import Navbar from "../components/navbar"
+import Wrapper from "../components/wrapper"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
