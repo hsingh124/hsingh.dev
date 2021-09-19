@@ -3,7 +3,7 @@ import * as React from "react"
 
 const Navbar = () => {
 	return (
-		<div className="fixed">
+		<div className="fixed top-0 left-0">
 			<div className="px-4 py-6 w-screen h-10 bg-gray-50">
 				<div className="flex h-full items-center gap-2">
 					<Link 
