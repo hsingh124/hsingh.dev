@@ -4,8 +4,7 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import Navbar from "../components/navbar"
-import Wrapper from "../components/template"
+import Template from "../components/template"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
@@ -27,7 +26,7 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     // <Layout location={location} title={siteTitle}>
-    <Wrapper>
+    <Template>
       <div className="flex h-full justify-center items-center gap-4">
         <Seo title="All posts" />
         {/* <Bio /> */}
@@ -64,7 +63,7 @@ const BlogIndex = ({ data, location }) => {
           })}
         </ol>
       </div>
-    </Wrapper>
+    </Template>
     // </Layout>
   )
 }

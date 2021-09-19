@@ -1,12 +1,10 @@
 import * as React from "react"
 import { StaticImage } from "gatsby-plugin-image"
-import Navbar from "../components/navbar"
-import Footer from "../components/footer"
-import Wrapper from "../components/template"
+import Template from "../components/template"
 
 export default function About() {
 	return (
-		<Wrapper>
+		<Template>
 			<div className="flex h-full justify-center items-center gap-4">
 				<div>
 					<StaticImage
@@ -33,6 +31,6 @@ export default function About() {
 					</p>
 				</div>
 			</div>
-		</Wrapper>
+		</Template>
 	)
 }
