@@ -2,7 +2,7 @@ import * as React from "react"
 import { StaticImage } from "gatsby-plugin-image"
 import Navbar from "../components/navbar"
 import Footer from "../components/footer"
-import Wrapper from "../components/wrapper"
+import Wrapper from "../components/template"
 
 export default function About() {
 	return (
