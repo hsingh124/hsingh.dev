@@ -2,7 +2,7 @@ import * as React from "react"
 import Footer from "./footer"
 import Navbar from "./navbar"
 
-const Wrapper = ({children}) => {
+const Template = ({children}) => {
 	return (
 		<div className="h-screen">
       	<Navbar />
@@ -12,4 +12,4 @@ const Wrapper = ({children}) => {
 	)
 }
 
-export default Wrapper
+export default Template
