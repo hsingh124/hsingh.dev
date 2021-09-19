@@ -5,30 +5,26 @@ import Template from "../components/template"
 export default function About() {
 	return (
 		<Template>
-			<div className="flex h-full justify-center items-center gap-4">
-				<div>
-					<StaticImage
-						// className="bio-avatar"
-						layout="fixed"
-						formats={["auto", "webp", "avif"]}
-						src="../images/avatar.png"
-						width={333}
-						height={399}
-						quality={95}
-						alt="Profile picture"
-					/>
-				</div>
-				<div className="space-y-3 max-w-prose">
-					<p className="text-4xl font-sans font-semibold">Hey! I'm Harpreet Singh</p>
-					<p className="text-2xl font-sans font-medium text-justify">
-						I am a software engineer in Auckland, New Zealand.
-						Here, you can see the projects I work on and read my blogs which are mostly about tech.
-						I mostly do full stack web dev but I'm also really interested in computer architecture, network engineering,
-						machine learning and FPGAs.
-					</p>
-					<p className="text-2xl font-sans font-medium text-justify">
-						Hope you like my work! 😄
-					</p>
+			<div className="py-32 flex justify-center items-center h-screen">
+				<div className="max-w-prose">
+					<div className="text-4xl text-center font-sans font-semibold">About me</div>
+					<div className="text-1xl text-gray-400 text-center font-sans font-semibold">Computer/Software Engineer</div>
+					<div className="my-10 text-1xl font-sans font-medium text-justify">
+						I am a software engineer based in Auckland, New Zealand. Most of my work involves full stack
+						web development but I'm also really interested in machine learning, high performance computing and low level
+						software dev like firmwares, networks (protocols and stuff), etc. I also really enjoy working on
+						hardware projects involving FPGAs, embedded systems, etc.
+					</div>
+					<div className="text-2xl font-sans font-semibold">Connect</div>
+					<div className="my-2 text-1xl font-sans font-medium text-justify">
+						You can connect with me via email:
+						<a className="font-semibold hover:text-green-600" href="mailto:harpreetsinghdev13@gmail.com"> harpreetsinghdev13@gmail.com</a>
+						or through the below mentioned links.
+					</div>
+					<div>
+						<div><a className="text-lg font-sans font-semibold hover:text-green-600" href="https://github.com/hsingh124">GitHub</a></div>
+						<div><a className="text-lg font-sans font-semibold hover:text-green-600" href="https://www.linkedin.com/in/singh9600/">LinkedIn</a></div>
+					</div>
 				</div>
 			</div>
 		</Template>
