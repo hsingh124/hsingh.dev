@@ -1,13 +1,11 @@
 import * as React from "react"
 import { StaticImage } from "gatsby-plugin-image"
-import Navbar from "../components/navbar"
-import Footer from "../components/footer"
+import Wrapper from "../components/Wrapper"
 
 const HomePage = () => {
 	return (
-		<div className="flex flex-col justify-center h-screen justify-between">
-			<Navbar />
-			<div className="flex justify-center items-center gap-4">
+		<Wrapper>
+			<div className="flex h-full justify-center items-center gap-4">
 				<div>
 					<StaticImage
 						// className="bio-avatar"
@@ -33,8 +31,7 @@ const HomePage = () => {
 					</p>
 				</div>
 			</div>
-			<Footer />
-		</div>
+		</Wrapper>
 	)
 }
 
