@@ -5,8 +5,8 @@ import Navbar from "./navbar"
 const Template = ({children}) => {
 	return (
 		<div className="h-screen">
-      	<Navbar />
 			{children}
+      	<Navbar />
 			<Footer />
 		</div>
 	)

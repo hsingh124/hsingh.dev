@@ -19,7 +19,7 @@ export default function About() {
 					<div className="my-2 text-1xl font-sans font-medium text-justify">
 						You can connect with me via email:
 						<a className="font-semibold hover:text-green-600" href="mailto:harpreetsinghdev13@gmail.com"> harpreetsinghdev13@gmail.com</a>
-						or through the below mentioned links.
+						<span> or through the below mentioned links.</span>
 					</div>
 					<div>
 						<div><a className="text-lg font-sans font-semibold hover:text-green-600" href="https://github.com/hsingh124">GitHub</a></div>
