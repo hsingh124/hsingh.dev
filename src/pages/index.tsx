@@ -1,11 +1,13 @@
 import * as React from "react"
 import { StaticImage } from "gatsby-plugin-image"
+import Seo from "../components/seo"
 import Template from "../components/template"
 
 const HomePage = () => {
 	return (
 		<Template>
 			<div className="flex flex-col h-full justify-center items-center gap-4 my-14 mx-10 sm:my-0 md:flex-row">
+				<Seo title="Harpreet Singh" />
 				<div className="w-40 max-w-xs md:w-full sm:w-52">
 					<StaticImage
 						// className="bio-avatar"

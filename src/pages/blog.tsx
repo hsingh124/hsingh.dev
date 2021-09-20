@@ -13,7 +13,7 @@ const BlogIndex = ({ data, location }) => {
   if (posts.length === 0) {
     return (
       <Template>
-        <Seo title="All posts" />
+        <Seo title="Blog | Harpreet Singh" />
       </Template>
     )
   }
@@ -22,7 +22,7 @@ const BlogIndex = ({ data, location }) => {
     // <Layout location={location} title={siteTitle}>
     <Template>
       <div className="flex h-full justify-center items-center gap-4">
-        <Seo title="All posts" />
+        <Seo title="Blog | Harpreet Singh" />
         {/* <Bio /> */}
         <ol style={{ listStyle: `none` }}>
           {posts.map(post => {
