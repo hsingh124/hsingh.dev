@@ -13,3 +13,6 @@ import "prismjs/themes/prism.css"
 
 // custom CSS styles
 import "./src/style.css"
+
+// overwrite CSS
+import "./src/overwrite.css"

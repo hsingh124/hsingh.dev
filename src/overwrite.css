@@ -1,0 +1,13 @@
+ul,
+ol {
+	list-style: revert;
+	padding-left: revert;
+}
+
+a {
+	color: #3B82F6;
+}
+/* a:hover {
+	color: white;
+	background-color: #3B82F6;
+} */
