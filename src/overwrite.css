@@ -1,7 +1,7 @@
 ul,
 ol {
 	list-style: revert;
-	padding-left: revert;
+	/* padding-left: revert; */
 }
 
 a {

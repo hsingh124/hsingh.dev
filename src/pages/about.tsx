@@ -14,7 +14,7 @@ export default function About() {
 					<div className="my-10 text-1xl font-sans font-medium text-justify">
 						I am a software engineer based in Auckland, New Zealand. Most of my work involves full stack
 						web development but I'm also really interested in machine learning, high performance computing and low level
-						software dev like firmwares, networks (protocols and stuff), etc. I also really enjoy working on
+						software dev like firmwares, networks, etc. I also really enjoy working on
 						hardware projects involving FPGAs, embedded systems, etc.
 					</div>
 					<div className="text-2xl font-sans font-semibold">Connect</div>
