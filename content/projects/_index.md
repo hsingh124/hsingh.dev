@@ -1,7 +1,2 @@
----
-title: Home
----
+### Projects
 
-# Harpreet Singh
-
-Hey, this is my blog.

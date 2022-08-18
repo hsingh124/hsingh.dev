@@ -12,6 +12,31 @@ pre {
     padding: 1em;
 }
 
+/* Update <p> and headings margins */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 0px;
+}
+
+p {
+    margin-top: 0px;
+}
+
+/* Links */
+a:not(.link) {
+    color: #0074D9;
+    font-weight: 500;
+}
+
+a:hover:not(.link) {
+    background-color: #0074D9;
+    color: white;
+}
+
 /* 
 Custom Classes
 */
@@ -25,6 +50,14 @@ Custom Classes
 .menu-item>.link {
     color: black;
     text-decoration: none;
+}
+
+.menu-item>.link:hover {
+    font-weight: 500;
+}
+
+.menu-item.active>.link {
+    font-weight: 500;
 }
 
 .menu-item::before {
