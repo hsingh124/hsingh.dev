@@ -8,3 +8,9 @@ Currently, I am working as a full stack engineer where I mostly code in PHP for 
 Currently I use [VS-Code](https://code.visualstudio.com/) as my main code editor with the [One Dark Theme](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme).
 For note taking I use [Obsidian](https://obsidian.md/).
 About this site, this was made using [Hugo](https://gohugo.io/).
+
+### Contacts
+[Email](mailto:harpreet@hsingh.dev)\
+[GitHub](https://github.com/hsingh124)\
+[LinkedIn](https://www.linkedin.com/in/hsingh124/)\
+[Twitter](https://twitter.com/_hsinghdev)
