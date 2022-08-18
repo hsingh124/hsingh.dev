@@ -4,15 +4,22 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ .Title }} | {{ .Site.Title }}</title>
-        <link rel="stylesheet" href="{{ "css/style.css" | relURL }}" />
         <link rel="stylesheet" href="{{ "css/fonts.css" | relURL }}" />
+        <link rel="stylesheet" href="{{ "css/style.css" | relURL }}" />
     </head>
 
     <body>
         <nav>
             <div class="menu">
+                {{ $currentPage := . }}
                 {{ range .Site.Menus.main }}
-                    <div><a href="{{ .URL | relURL }}">{{ .Name }}</a></div>
+                    {{ $menu_item_url := .URL | relLangURL }}
+                    {{ $page_url := $currentPage.RelPermalink | relLangURL }}
+                    <div class='menu-item {{ if eq $menu_item_url $page_url }}active{{ end }}'>
+                        <a class="link" href="{{ .URL | relURL }}">
+                            {{ .Name }}
+                        </a>
+                    </div>
                 {{ end }}
             </div>
             <hr/>
