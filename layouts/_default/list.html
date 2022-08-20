@@ -1,19 +1,17 @@
 {{ partial "header.html" . }}
 
 {{ if not .IsHome }}
-<h3>{{ .Title | markdownify }}</h3>
+<h2>{{ .Title | markdownify }}</h2>
 {{ end }}
 
 {{ .Content }}
 
 {{ $pages := .Pages }}
-{{ if not .IsHome }}
-    {{ range (where $pages "Section" "!=" "") }}
-        <div class="page-list">
-            <span class="date">{{ .Date.Format "2006/01/02" }}</span>
-            <a href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a>
-        </div>
-    {{ end }}
+{{ range (where $pages "Section" "!=" "") }}
+    <div class="page-list">
+        <span class="date">{{ .Date.Format "2006/01/02" }}</span>
+        <a href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a>
+    </div>
 {{ end }}
 
 {{ partial "footer.html" . }}
