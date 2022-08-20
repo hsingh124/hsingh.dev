@@ -1,3 +1,7 @@
+---
+title: "Home"
+---
+
 ### Hey, I'm Harpreet Singh
 I am a software engineer working in Auckland, New Zealand. This is my website where I write blogs about tech, share updates about my projects or really post anything I think is interesting. Some of the subjects I am interested in are computer networking, computer architecture and software architecture. I also do want to learn about machine learning.
 
