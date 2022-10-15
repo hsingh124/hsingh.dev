@@ -97,3 +97,9 @@ Custom Classes
     -webkit-user-select: none;
     touch-action: manipulation;
 }
+
+.drawingsContainer {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}

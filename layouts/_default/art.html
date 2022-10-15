@@ -1,0 +1,17 @@
+{{ partial "header.html" . }}
+
+{{ if not .IsHome }}
+<h2>{{ .Title | markdownify }}</h2>
+{{ end }}
+
+{{ .Content }}
+
+{{ $imageUrl := print .Site.BaseURL "images/drawing1.jpeg" }}
+{{ $image := resources.GetRemote $imageUrl }}
+<div class="drawingsContainer">
+    <img src="{{ $image.RelPermalink }}" height="{{ div $image.Height 1.2 }}">
+    <img src="{{ $image.RelPermalink }}" height="{{ div $image.Height 1.2 }}">
+    <img src="{{ $image.RelPermalink }}" height="{{ div $image.Height 1.2 }}">
+</div>
+
+{{ partial "footer.html" . }}
