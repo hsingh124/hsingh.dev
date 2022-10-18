@@ -15,7 +15,3 @@ title = 'hsingh.dev'
   name = 'Projects'
   url = '/projects/'
   weight = 3
-[[menu.main]]
-  name = 'Tags'
-  url = '/tags/'
-  weight = 4

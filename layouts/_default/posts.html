@@ -1,0 +1,26 @@
+{{ partial "header.html" . }}
+
+<h2>{{ .Title | markdownify }}</h2>
+
+<div class="posts-page-container">
+    <div class="posts-table">
+        <table style="width:100%;">
+            {{ range .Pages }}
+            <tr>
+                <td><a href="{{.Permalink}}">{{.Title}}</a></td>
+                <td>{{.Date.Format "2006-01-02"}}</td>
+            </tr>
+            {{ end }}
+        </table>
+    </div>
+    <div class="tags">
+        <b>Tags</b>
+        {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+        {{ with $.Site.GetPage (printf "/tags/%s" $name) }}
+        <a href="{{ .Permalink }}">{{ $name }}</a>
+        {{ end }}
+        {{ end }}
+    </div>
+</div>
+
+{{ partial "footer.html" . }}

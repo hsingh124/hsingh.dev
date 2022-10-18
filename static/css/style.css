@@ -19,6 +19,12 @@ h3, h4, h5, h6 {
     margin-bottom: 0px;
 }
 
+hr {
+    min-height: 1px;
+    background-color: #8e8e8e;
+    border: 0;
+}
+
 p {
     margin-top: 0px;
 }
@@ -96,4 +102,23 @@ Custom Classes
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+}
+
+/* Posts Page */
+.posts-page-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.posts-table {
+    flex: 2
+}
+
+.tags {
+    display: flex;
+    flex-direction: column;
+    background-color: #F6F6F6;
+    padding: 10px 30px;
+    border-radius: 8px;
 }
