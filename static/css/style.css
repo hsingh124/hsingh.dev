@@ -12,6 +12,15 @@ pre {
     padding: 1em;
     background: #272822;
     color: #EEE;
+    border-radius: 12px;
+}
+
+code.language-console {
+    display: flex;
+}
+
+code.language-console::before {
+    content: "$ ";
 }
 
 /* Update <p> and headings margins */
