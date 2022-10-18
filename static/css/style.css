@@ -109,14 +109,14 @@ Custom Classes
     touch-action: manipulation;
 }
 
-/* posts page */
-.posts {
+/* Lists */
+.lists-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
 
-.post {
+.list-item {
     display: flex;
     justify-content: space-between;
     background-color: #F6F6F6;
@@ -125,26 +125,26 @@ Custom Classes
     gap: 5px;
 }
 
-.post:hover {
+.list-item:hover {
     background-color: #E8E8E8; 
 }
 
-.post-head {
+.list-item-head {
     flex: 2
 }
 
-.post-title {
+.list-item-title {
     color: #000;
     font-weight: 600;
 }
 
-.post-summary {
+.list-item-summary {
     color: #888888;
     font-weight: 500;
     font-size:13px; 
 }
 
-.post-date {
+.list-item-date {
     color: #888888;
     font-weight: 500;
     font-size:15px;

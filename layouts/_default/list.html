@@ -6,12 +6,20 @@
 
 {{ .Content }}
 
+<div class="lists-container">
 {{ $pages := .Pages }}
 {{ range (where $pages "Section" "!=" "") }}
-    <div class="page-list">
-        <span class="date">{{ .Date.Format "2006/01/02" }}</span>
-        <a href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a>
+<a class="default-link no-decoration-link" href="{{.Permalink}}">
+    <div class="list-item">
+        <div class="list-item-head">
+            <div class="list-item-title">{{.Title}}</div>
+            <div class="list-item-summary">{{.Summary}}</div>
+        </div>
+
+        <div class="list-item-date">{{.Date.Format "2006-01-02"}}</div>
     </div>
+</a>
 {{ end }}
+</div>
 
 {{ partial "footer.html" . }}
