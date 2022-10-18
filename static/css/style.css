@@ -11,10 +11,7 @@ body {
 pre {
     padding: 1em;
     background: #272822;
-}
-
-code {
-    background-color: #EEE
+    color: #EEE;
 }
 
 /* Update <p> and headings margins */
