@@ -10,12 +10,16 @@ body {
 
 pre {
     padding: 1em;
+    background: #272822;
 }
 
 /* Update <p> and headings margins */
 /* Only updating from h3 onwards because thats the one used for in article headings */
 /* h1 and h2 are used for page titles */
-h3, h4, h5, h6 {
+h3,
+h4,
+h5,
+h6 {
     margin-bottom: 0px;
 }
 
@@ -126,7 +130,7 @@ Custom Classes
 }
 
 .list-item:hover {
-    background-color: #E8E8E8; 
+    background-color: #E8E8E8;
 }
 
 .list-item-head {
@@ -141,11 +145,11 @@ Custom Classes
 .list-item-summary {
     color: #888888;
     font-weight: 500;
-    font-size:13px; 
+    font-size: 13px;
 }
 
 .list-item-date {
     color: #888888;
     font-weight: 500;
-    font-size:15px;
+    font-size: 15px;
 }
