@@ -13,6 +13,7 @@ pre {
     background: #272822;
     color: #EEE;
     border-radius: 12px;
+    overflow-x: scroll; 
 }
 
 code.language-console {
