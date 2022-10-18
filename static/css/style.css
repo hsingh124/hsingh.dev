@@ -19,17 +19,24 @@ h3, h4, h5, h6 {
     margin-bottom: 0px;
 }
 
+hr {
+    min-height: 1px;
+    background-color: #8e8e8e;
+    border: 0;
+}
+
 p {
     margin-top: 0px;
 }
 
 /* Links */
-a:not(.link) {
+a:not(.default-link) {
     color: #0074D9;
     font-weight: 500;
+    text-decoration: none;
 }
 
-a:hover:not(.link) {
+a:hover:not(.default-link) {
     background-color: #0074D9;
     color: white;
 }
@@ -37,6 +44,10 @@ a:hover:not(.link) {
 /* 
 Custom Classes
 */
+.no-decoration-link {
+    text-decoration: none;
+}
+
 .menu {
     display: grid;
     grid-auto-columns: 1fr;
@@ -96,4 +107,45 @@ Custom Classes
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+}
+
+/* posts page */
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.post {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F6F6F6;
+    padding: 10px;
+    border-radius: 8px;
+    gap: 5px;
+}
+
+.post:hover {
+    background-color: #E8E8E8; 
+}
+
+.post-head {
+    flex: 2
+}
+
+.post-title {
+    color: #000;
+    font-weight: 600;
+}
+
+.post-summary {
+    color: #888888;
+    font-weight: 500;
+    font-size:13px; 
+}
+
+.post-date {
+    color: #888888;
+    font-weight: 500;
+    font-size:15px;
 }

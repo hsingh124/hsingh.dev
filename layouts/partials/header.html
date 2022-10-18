@@ -16,7 +16,7 @@
                     {{ $menu_item_url := .URL | relLangURL }}
                     {{ $page_url := $currentPage.RelPermalink | relLangURL }}
                     <div class='menu-item {{ if eq $menu_item_url $page_url }}active{{ end }}'>
-                        <a class="link" href="{{ .URL | relURL }}">
+                        <a class="link default-link" href="{{ .URL | relURL }}">
                             {{ .Name }}
                         </a>
                     </div>
