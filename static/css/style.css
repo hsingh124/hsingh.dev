@@ -124,6 +124,27 @@ Custom Classes
     touch-action: manipulation;
 }
 
+/* Article Page */
+.article-meta {
+    margin-top: 0.83em;
+}
+
+.article-page-title {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.article-page-summary {
+    color: #888888;
+    font-weight: 500;
+    font-size: 16px; 
+}
+
+.article-page-date {
+    font-weight: 600;
+    font-size: 16px;  
+}
+
 /* Lists */
 .lists-container {
     display: flex;
