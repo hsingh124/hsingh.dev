@@ -13,6 +13,10 @@ pre {
     background: #272822;
 }
 
+code {
+    background-color: #EEE
+}
+
 /* Update <p> and headings margins */
 /* Only updating from h3 onwards because thats the one used for in article headings */
 /* h1 and h2 are used for page titles */
