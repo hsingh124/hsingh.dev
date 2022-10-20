@@ -24,12 +24,6 @@ code.language-console::before {
     content: "$ ";
 }
 
-/* This is to add a blank space after the code. If the code is
-large enough to enable scroll, the end does not have any padding. */
-code::after {
-    content: "\00a0";
-}
-
 /* Update <p> and headings margins */
 /* Only updating from h3 onwards because thats the one used for in article headings */
 /* h1 and h2 are used for page titles */

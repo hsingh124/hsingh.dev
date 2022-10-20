@@ -36,7 +36,7 @@ There are alternatives to this as well, more information can be found in the [of
 awslocal dynamodb list-tables
 ```
 
-### Writing a script to populate DynamoDB in Localstack
+### Populating DynamoDB
+Let's populate our dynamoDB running in localstack with some data. To do this we'll write a go script. 
 
-
-### Writing a script to retrieve all data from DynamoDB in Localstack
+### Retrieving all Data from Localstack
