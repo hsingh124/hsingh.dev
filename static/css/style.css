@@ -13,7 +13,7 @@ pre {
     background: #272822;
     color: #EEE;
     border-radius: 12px;
-    overflow-x: scroll; 
+    overflow-x: auto; 
 }
 
 code.language-console {
@@ -22,6 +22,12 @@ code.language-console {
 
 code.language-console::before {
     content: "$ ";
+}
+
+/* This is to add a blank space after the code. If the code is
+large enough to enable scroll, the end does not have any padding. */
+code::after {
+    content: "\00a0";
 }
 
 /* Update <p> and headings margins */
