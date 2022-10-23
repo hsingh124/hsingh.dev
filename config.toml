@@ -1,6 +1,6 @@
-baseURL = 'https://www.hsingh.dev/'
+baseURL = 'https://www.harpreetsingh.dev/'
 languageCode = 'en-us'
-title = 'hsingh.dev'
+title = 'harpreetsingh.dev'
 
 [menu]
 [[menu.main]]

@@ -14,7 +14,7 @@ For note taking I use [Obsidian](https://obsidian.md/).
 About this site, this was made using [Hugo](https://gohugo.io/).
 
 ### Contacts
-[Email](mailto:harpreet@hsingh.dev) 
+[Email](mailto:contact@harpreetsingh.dev) 
 \- [GitHub](https://github.com/hsingh124) 
 \- [LinkedIn](https://www.linkedin.com/in/hsingh124/) 
 \- [Twitter](https://twitter.com/_hsinghdev)
