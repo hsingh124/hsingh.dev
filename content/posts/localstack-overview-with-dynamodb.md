@@ -57,6 +57,16 @@ svc := dynamodb.New(sess)
 ### Creating a Table
 Let's create a table called _Students_ that holds data about which subjects students are enrolled in. We'll have two attributes in this table, the student's id which will be a number and the subject the student is enrolled in which will be a string. We'll create a function called `createTable` that'll take the DynamoDB client that we created earlier as an arguent and create the table.
 
+The following imports were used in this function which can be added to your project using to `go get` command:
+```go
+import (
+	"log"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
+)
+```
+
+Below is the function to create the table:
 ```go
 func createTable(svc *dynamodb.DynamoDB) {
     tableName := "Students"
@@ -103,6 +113,52 @@ In the above code, we have defined the structure of our table. We have specified
 Now we can call this function from our main function and pass in the DynamoDB client we created as an argument.
 
 ### Populating the table
+Now lets populate the students table with fake some data. To do this, we will write another function that will take the DynamoDB client as a argument.
 
+The following imports were used in this function:
+```go
+import (
+	"log"
+	"strconv"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
+	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+)
+```
+
+Below is the function to populate the DB:
+```go
+func populateDb(svc *dynamodb.DynamoDB) {
+	type Item struct {
+		StudentId	int
+		Subject		string
+	}
+
+	for i := 1; i < 100; i++ {
+		item := Item{
+			StudentId: i,
+			Subject: "Subject" + strconv.Itoa(i),
+		}
+
+		av, err := dynamodbattribute.MarshalMap(item)
+		if err != nil {
+			log.Fatalf("Got error marshalling new movie item: %s", err)
+		}
+
+		tableName := "Students"
+
+		input := &dynamodb.PutItemInput{
+			Item:      av,
+			TableName: aws.String(tableName),
+		}
+
+		_, err = svc.PutItem(input)
+		if err != nil {
+			log.Fatalf("Got error calling PutItem: %s", err)
+		}
+	}
+}
+```
+<!-- The above code will populate our database 99 records. We first create  -->
 
 ### Retrieving all Data from Localstack
