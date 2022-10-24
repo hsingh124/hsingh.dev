@@ -40,24 +40,32 @@ For this project, we'll create the AWS session and the DynamoDB client in the ma
 
 Below is the code for creating an AWS session and a DynamoDB client. This code should be in the main function. The session we create will connect to our Localstack setup and treat that as the AWS environment.
 
+These are the required imports for this code which can be added to your project using to `go get` command:
 ```go
-// Initialize a session that the AWS SDK will use. This session will connect to
-// our Localstack setup which is hosted on port 4566 as specified to the 
-// Endpoint field.
+import (
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
+)
+```
+
+Here is the code:
+```go
 sess, _ := session.NewSession(&aws.Config{
     Region:           aws.String("us-east-1"),
     Credentials:      credentials.NewStaticCredentials("test", "test", ""),
     Endpoint:         aws.String("http://localhost:4566"),
 })
 
-// Create a dynamoDB client
 svc := dynamodb.New(sess)
 ```
+The above code initializes a session that the AWS SDK will use. This session will connect to our Localstack setup which is hosted on port 4566 as specified to the Endpoint field. Then we create a DynamoDB client using that session.
 
 ### Creating a Table
 Let's create a table called _Students_ that holds data about which subjects students are enrolled in. We'll have two attributes in this table, the student's id which will be a number and the subject the student is enrolled in which will be a string. We'll create a function called `createTable` that'll take the DynamoDB client that we created earlier as an arguent and create the table.
 
-The following imports were used in this function which can be added to your project using to `go get` command:
+The following imports were used in this function:
 ```go
 import (
 	"log"
@@ -163,4 +171,4 @@ The above code will populate our database with 99 records. We have first defined
 
 ### Retrieving all Data from Localstack
 
-<!-- Now lets write a script to retrieve all the data we added. -->
+Now lets write a script to retrieve all the data we added.
