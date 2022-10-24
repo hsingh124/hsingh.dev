@@ -2,7 +2,7 @@
 title: "Localstack Overview with DynamoDB"
 date: 2022-10-18T10:45:09+13:00
 tags: ['Cloud']
-summary: "This goes through a quick project which involves setting up Localstack as a cloud dev/testing environment and writing a go script using the AWS SDK for it."
+summary: "This goes through a quick project which involves setting up Localstack as a cloud dev/testing environment and writing a go script using the AWS SDK for creating a table, populating it and getting all the data."
 ---
 
 [Localstack](https://localstack.cloud/) is a cloud service emulator. It gives you a mock local AWS setup that you can use for testing and development instead of using an actual cloud service. In this post, we'll be setting up Localstack as a local development environment and writing a go script using the AWS SDK to fetch all the rows from a DynamoDB instance on Localstack.
@@ -170,5 +170,96 @@ func populateDb(svc *dynamodb.DynamoDB) {
 The above code will populate our database with 99 records. We have first defined a struct called `Item` that specifies the structure of our table of what attributes we have. Then we just go in a loop and add data. We declare an object of the type `Item` and pass it through the `MarshalMap` function. All this function will do is convert our object of `Item` type to a format that DynamoDB APIs can operate with. This is the type that `MarshalMap` returns: `(map[string]*dynamodb.AttributeValue, error)`. Once that is done, we call the `PutItemInput` function to add this entry to our database. We specify the Item which is the data that we put and then the table name we put this data into.
 
 ### Retrieving all Data from Localstack
+Now lets write a script to retrieve all the data we added. Similar to the other functions this will also take in the DynamoDB client as a parameter. This function would return an array of objects where each object is an entry from our database, so we have to define a return type as well.
 
-Now lets write a script to retrieve all the data we added.
+The following imports were used:
+```go
+import (
+	"log"
+	"strconv"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
+	"github.com/aws/aws-sdk-go/service/dynamodb/expression"
+)
+```
+
+This function would return an array of objects that resemble a database entry, so we'll define a struct to achieve that.
+```go
+type Item struct {
+	StudentId int
+	Subject   string
+}
+```
+Our function would return an array of objects which are of the type `Item`. Now, this struct is exactly the same as the struct used in the function `populateDb`. We can declare this struct at a global scope and use the same one in both places.
+
+The function would look something like this:
+```go
+func getItems(svc *dynamodb.DynamoDB) []Item {
+	tableName := "Students"
+
+	proj := expression.NamesList(expression.Name("StudentId"), expression.Name("Subject"))
+
+	expr, err := expression.NewBuilder().WithProjection(proj).Build()
+	if err != nil {
+		log.Fatalf("Got error building expression: %s", err)
+	}
+
+	params := &dynamodb.ScanInput{
+		ExpressionAttributeNames:  expr.Names(),
+		ExpressionAttributeValues: expr.Values(),
+		ProjectionExpression:      expr.Projection(),
+		TableName:                 aws.String(tableName),
+	}
+
+	items := []Item{}
+
+	pageNum := 0
+	err = svc.ScanPages(params,
+		func(page *dynamodb.ScanOutput, lastPage bool) bool {
+			pageNum++
+			for _, i := range page.Items {
+				studentId, err := strconv.Atoi(*i["StudentId"].N)
+				if err != nil {
+					log.Fatalln("Invalid Student ID")
+				}
+
+				item := Item{
+					StudentId: studentId,
+					Subject:   *i["Subject"].S,
+				}
+
+				items = append(items, item)
+			}
+			return pageNum <= 3
+		})
+	if err != nil {
+		log.Fatalf("Query API call failed: %s", err)
+	}
+
+	return items
+}
+```
+
+In the `NamesList` function, we specify the attribute names that we want from our database and it returns a projection expression. Basically, DynamoDB on operations like `Scan`, `GetItem`, etc returns all the attributes by default. By using this we can specify only the columns we need. Now in this we have specified all the columns we had in the table anyways, but I thought I'll put this here for information. If we did not want to use this and wanted to print all of the data with all of the attributes, we could do that by removing all the expressions code. So the first half of the function would change and would look like the code below (I have comented out the code that we can remove): 
+```go
+tableName := "Students"
+
+// proj := expression.NamesList(expression.Name("StudentId"), expression.Name("Subject"))
+
+// expr, err := expression.NewBuilder().WithProjection(proj).Build()
+// if err != nil {
+// 	log.Fatalf("Got error building expression: %s", err)
+// }
+
+params := &dynamodb.ScanInput{
+    // ExpressionAttributeNames:  expr.Names(),
+    // ExpressionAttributeValues: expr.Values(),
+    // ProjectionExpression:      expr.Projection(),
+    TableName:                 aws.String(tableName),
+}
+
+items := []Item{}
+``` 
+For more information on this, check out these official doc pages: [Namelist](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/expression/#NamesList), [Projection Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ProjectionExpressions.html)
+
+After that we build the builder, we specify the projection builder using the `WithProjection` function. The expressions package also has methods like `WithCondition`, `WithFilter`, etc that can be used to add other expressions to our builder. Read more about them here in the [`Builder` type's documentation page](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/expression/#Builder). 
