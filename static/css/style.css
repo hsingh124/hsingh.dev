@@ -185,3 +185,8 @@ Custom Classes
     font-weight: 500;
     font-size: 15px;
 }
+
+/* utterances commenting */
+.utterances {
+    max-width: none;
+}
