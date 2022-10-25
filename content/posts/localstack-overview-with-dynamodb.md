@@ -167,7 +167,7 @@ func populateDb(svc *dynamodb.DynamoDB) {
 	}
 }
 ```
-The above code will populate our database with 99 records. We have first defined a struct called `Item` that specifies the structure of our table and what attributes we have. Then we just go in a loop and add data. We declare an object of the type `Item` and pass it through the `MarshalMap` function. All this function will do is convert our object of `Item` type to a format that DynamoDB APIs can operate with. This is the type that `MarshalMap` returns: `(map[string]*dynamodb.AttributeValue, error)`. Once that is done, we call the `PutItemInput` function to add this entry to our database. We specify the Item which is the data that we put and then the table name we put this data into.
+The above code will populate our database with 99 records. We have first defined a struct called `Item` that specifies the structure of our table and what attributes we have. Then we just go in a loop and add data. We create an object of the type `Item` and pass it through the `MarshalMap` function. All this function will do is convert our object of `Item` type to a format that DynamoDB APIs can operate with. This is the type that `MarshalMap` returns: `(map[string]*dynamodb.AttributeValue, error)`. Once that is done, we call the `PutItemInput` function to add this entry to our database. We specify the Item which is the data that we put and then the table name we put this data into.
 
 ### Retrieving all Data from Localstack
 Now lets write a script to retrieve all the data we added. Similar to the other functions this will also take in the DynamoDB client as an argument. This function would return an array of objects where each object is an entry from our database, so we have to define a return type as well.
