@@ -2,13 +2,13 @@
 title: "Localstack Overview with DynamoDB"
 date: 2022-10-18T10:45:09+13:00
 tags: ['Cloud']
-summary: "This goes through a quick project which involves setting up Localstack as a cloud dev/testing environment and writing a go script using the AWS SDK for creating a table, populating it and getting all the data."
+summary: "This goes through a quick project which involves setting up Localstack as a mock local cloud environment for testing/development and writing go scripts using the AWS SDK for creating a table, populating it and getting all the data."
 ---
 
-[Localstack](https://localstack.cloud/) is a cloud service emulator. It gives you a mock local AWS setup that you can use for testing and development instead of using an actual cloud service. In this post, we'll be setting up Localstack as a local development environment and writing a go script using the AWS SDK to fetch all the rows from a DynamoDB instance on Localstack.
+[Localstack](https://localstack.cloud/) is a cloud service emulator. It gives you a mock local AWS setup that you can use for testing and development instead of using an actual cloud service. In this post, we'll be setting up Localstack and writing some go code using the AWS SDK to create a DynamoDB table inside of our Localstack environment, populate the table with fake data and get all the data from the table.
 
 ### Setting up Localstack
-Based on [localstack's docs](https://docs.localstack.cloud/get-started/), the best way to install it using pip(python package manager). You would need the following installed on your system:
+Based on [localstack's docs](https://docs.localstack.cloud/get-started/), the best way to install it is using pip (a python package manager). You would need the following installed on your system:
 - `python` (Python 3.7 up to 3.10 is supported)
 - `pip` (Python package manager)
 - `docker`
@@ -17,7 +17,7 @@ Running the following command in the terminal should install Localstack:
 ```console
 python3 -m pip install localstack
 ```
-**_NOTE:_**  There might be a case where after installing the Localstack cli might not work. I encountered this issue where I would type a command and nothing would happen and it would just stay stuck. I believe the reason was that the CLI was not automatically downloading the required docker image. I am not sure why this happened but for reference, I am using an M1 Macbook Pro. To resolve this you can get the image by running the following command in the terminal:
+**_NOTE:_**  There might be a case where after installing the Localstack cli might not work. I encountered this issue where I would type a command and nothing would happen. My terminal would just stay stuck. I believe the reason was that the CLI was not automatically downloading the required docker image. I am not sure why this happened but for reference, I am using an M1 Macbook Pro. To resolve this you can get the image by running the following command in the terminal:
 ```console
 docker run --rm -it -p 4566:4566 -p 4510-4559:4510-4559 localstack/localstack
 ```
@@ -121,7 +121,7 @@ In the above code, we have defined the structure of our table. We have specified
 Now we can call this function from our main function and pass in the DynamoDB client we created as an argument.
 
 ### Populating the table
-Now lets populate the students table with fake some data. To do this, we will write another function that will take the DynamoDB client as a argument.
+Now lets populate the students table with some fake data. To do this, we will write another function that will take the DynamoDB client as a argument.
 
 The following imports were used in this function:
 ```go
@@ -167,10 +167,10 @@ func populateDb(svc *dynamodb.DynamoDB) {
 	}
 }
 ```
-The above code will populate our database with 99 records. We have first defined a struct called `Item` that specifies the structure of our table of what attributes we have. Then we just go in a loop and add data. We declare an object of the type `Item` and pass it through the `MarshalMap` function. All this function will do is convert our object of `Item` type to a format that DynamoDB APIs can operate with. This is the type that `MarshalMap` returns: `(map[string]*dynamodb.AttributeValue, error)`. Once that is done, we call the `PutItemInput` function to add this entry to our database. We specify the Item which is the data that we put and then the table name we put this data into.
+The above code will populate our database with 99 records. We have first defined a struct called `Item` that specifies the structure of our table and what attributes we have. Then we just go in a loop and add data. We declare an object of the type `Item` and pass it through the `MarshalMap` function. All this function will do is convert our object of `Item` type to a format that DynamoDB APIs can operate with. This is the type that `MarshalMap` returns: `(map[string]*dynamodb.AttributeValue, error)`. Once that is done, we call the `PutItemInput` function to add this entry to our database. We specify the Item which is the data that we put and then the table name we put this data into.
 
 ### Retrieving all Data from Localstack
-Now lets write a script to retrieve all the data we added. Similar to the other functions this will also take in the DynamoDB client as a parameter. This function would return an array of objects where each object is an entry from our database, so we have to define a return type as well.
+Now lets write a script to retrieve all the data we added. Similar to the other functions this will also take in the DynamoDB client as an argument. This function would return an array of objects where each object is an entry from our database, so we have to define a return type as well.
 
 The following imports were used:
 ```go
@@ -240,7 +240,7 @@ func getItems(svc *dynamodb.DynamoDB) []Item {
 }
 ```
 
-In the `NamesList` function, we specify the attribute names that we want from our database and it returns a projection expression. Basically, DynamoDB on operations like `Scan`, `GetItem`, etc returns all the attributes by default. By using this we can specify only the columns we need. Now in this we have specified all the columns we had in the table anyways, but I thought I'll put this here for information. If we did not want to use this and wanted to print all of the data with all of the attributes, we could do that by removing all the expressions code. So the first half of the function would change and would look like the code below (I have comented out the code that we can remove): 
+In the `NamesList` function, we specify the attribute names that we want from our database and it returns a projection expression. DynamoDB on operations like `Scan`, `GetItem`, etc returns all the attributes by default. By using this we can specify only the columns we need. Now in this, we have specified all the columns we had in the table anyways, but I thought I'll put this here for information. If we did not want to use this and wanted to print all of the data with all of the attributes, we could do that by removing all the expressions code. So the first half of the function would change and would look like the code below (I have commented out the code that we can remove): 
 ```go
 tableName := "Students"
 
@@ -264,7 +264,7 @@ For more information on this, check out these official doc pages: [Namelist](htt
 
 After that we build the builder, we specify the projection builder using the `WithProjection` function. The expressions package also has methods like `WithCondition`, `WithFilter`, etc that can be used to add other expressions to our builder. Read more about them here in the [`Builder` type's documentation page](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/expression/#Builder).
 
-We then specify the `ScanInput` parameters for the expression and table name [[docs about `ScanInput`](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/#ScanInput)]. Now, we use the `ScanPages` function to retrieve all the data from our table. We could have used just the `Scan` function as well for this, but the `Scan` only returns a maximum of 1MB of data at a time. Our data is surely less that 1MB and `Scan` would have worked fine, but for this example lets just assume the data is more than 1MB. What `ScanPages` does is that it iterates over the pages of a scan operation, where each page being 1MB of data or less for the last page, calling the function `"fn"` specified in the second argument with the response data for each page. Basically, `fn` is called with a chunk of data, and when it's called again the data it gets starts from where the first chunk ended. This will stop iterating when `fn` returns false. So in our case, it will iterate for three pages [[docs for `ScanPages`](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/#DynamoDB.ScanPages)]. Inside of the function, were just grabbing all the items for that page, iterating over them, converting them to our desired format and then appending them to a slice(or a dynamic array). We'll then just return this data in the end.
+We then specify the `ScanInput` parameters for the expression and table name [[docs about `ScanInput`](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/#ScanInput)]. Now, we use the `ScanPages` function to retrieve all the data from our table. We could have used just the `Scan` function as well for this, but `Scan` only returns a maximum of 1MB of data at a time. Our data is surely less that 1MB and `Scan` would have worked fine, but for this example lets just assume the data is more than 1MB. What `ScanPages` does is that it iterates over the pages of a scan operation, where each page being 1MB of data or less for the last page, calling the function `"fn"` specified in the second argument with the response data for each page. Basically, `fn` is called with a chunk of data, and when it's called again the data it gets starts from where the first chunk ended. This will stop iterating when `fn` returns false. So in our case, it will iterate for three pages [[docs for `ScanPages`](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/#DynamoDB.ScanPages)]. Inside of the function, were just grabbing all the items for that page, iterating over them, converting them to our desired format and then appending them to a slice(or a dynamic array). We'll then just return this data in the end.
 
 ### Conclusion
 In this post, we setup an offline mock AWS environment using Localstack. We then coded three functions in go using the AWS SDK to create a table in DynamoDB inside of our Localstack environment, populate it and retrieve all the data from it. We can call these three functions from the main funtion. These were just some demo scripts that we made today but we can code any thing we would for AWS on Localstack. Even for the CLI, we can use awslocal the same way we would use the AWS CLI. In future, I would like to explore creating an automated testing environment using Localstack. For this post, I've tried my best to explain all important points but I surely might have missed some. Feel free to contact me regarding questions, suggestions or anything you want to discuss. I have also tried to link all the relavant pages that might be helpful.
