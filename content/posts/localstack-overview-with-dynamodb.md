@@ -150,7 +150,7 @@ func populateDb(svc *dynamodb.DynamoDB) {
 
 		av, err := dynamodbattribute.MarshalMap(item)
 		if err != nil {
-			log.Fatalf("Got error marshalling new movie item: %s", err)
+			log.Fatalf("Got error marshalling new item: %s", err)
 		}
 
 		tableName := "Students"
