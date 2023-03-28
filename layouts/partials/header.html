@@ -10,18 +10,16 @@
     </head>
 
     <body>
-        <nav>
-            <div class="menu">
-                {{ $currentPage := . }}
-                {{ range .Site.Menus.main }}
-                    {{ $menu_item_url := .URL | relLangURL }}
-                    {{ $page_url := $currentPage.RelPermalink | relLangURL }}
-                    <div class='menu-item {{ if eq $menu_item_url $page_url }}active{{ end }}'>
-                        <a class="link default-link" href="{{ .URL | relURL }}">
-                            {{ .Name }}
-                        </a>
-                    </div>
-                {{ end }}
+        <div class="home-header">
+            <div class="home-top">
+                <a class="home-title default-link" href="/">harpreetsingh.dev</a>
+                <a class="home-title default-link" href="/about">about</a>
             </div>
-            <hr/>
-        </nav>
+            <div class="home-links">
+                <a href="https://github.com/hsingh124">GitHub</a> -
+                <a href="https://www.linkedin.com/in/hsingh124/">LinkedIn</a> -
+                <a href="https://twitter.com/_hsinghdev">Twitter</a> -
+                <a href="mailto:contact@harpreetsingh.dev">Email</a>
+            </div>
+        </div>
+        <div class="page">

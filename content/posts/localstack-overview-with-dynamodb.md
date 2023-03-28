@@ -1,8 +1,8 @@
 ---
-title: "Localstack Overview with DynamoDB"
+title: "Setup a mock AWS locally using Localstack"
 date: 2022-10-18T10:45:09+13:00
 tags: ['Cloud']
-summary: "This goes through a quick project which involves setting up Localstack as a mock local cloud environment for testing/development and writing go scripts using the AWS SDK for creating a table, populating it and getting all the data."
+summary: "Setting up localstack as a mock local cloud environment for testing and development. Writing go code using aws sdk to manipulate the environment."
 ---
 
 [Localstack](https://localstack.cloud/) is a cloud service emulator. It gives you a mock local AWS setup that you can use for testing and development instead of using an actual cloud service. In this post, we'll be setting up Localstack and writing some go code using the AWS SDK to create a DynamoDB table inside of our Localstack environment, populate the table with fake data and get all the data from the table.
@@ -60,10 +60,10 @@ sess, _ := session.NewSession(&aws.Config{
 
 svc := dynamodb.New(sess)
 ```
-The above code initializes a session that the AWS SDK will use. This session will connect to our Localstack setup which is hosted on port 4566 as specified to the Endpoint field. Then we create a DynamoDB client using that session.
+The above code initializes a session that the AWS SDK will use. This session will connect to our Localstack setup which is hosted on port 4566 as specified in the Endpoint field. Then we create a DynamoDB client using that session.
 
 ### Creating a Table
-Let's create a table called _Students_ that holds data about which subjects students are enrolled in. We'll have two attributes in this table, the student's id which will be a number and the subject the student is enrolled in which will be a string. We'll create a function called `createTable` that'll take the DynamoDB client that we created earlier as an arguent and create the table.
+Let's create a table called _Students_ that holds data about which subjects students are enrolled in. We'll have two attributes in this table, the student's id which will be a number and the subject the student is enrolled in which will be a string. We'll create a function called `createTable` that'll take the DynamoDB client that we created earlier as an argument and create the table.
 
 The following imports were used in this function:
 ```go
@@ -116,12 +116,12 @@ func createTable(svc *dynamodb.DynamoDB) {
     }
 }
 ```
-In the above code, we have defined the structure of our table. We have specified that it will have two attributes, `StudentId` of type number ('N') and `Subject` of type string ('S'). We also specify the key schema or primary key which will uniquely identify each element. `StudentId` is a partition key (aka hash key) and `Subject` is a sort key (aka range key). In short, this means that each item is uniquely identified by the combination of these two keys. For our table, this means we can have multiple items with the same student id but each student can only be enrolled in a particular subject once. So the combination of student id and the subject is always unique. Read more about this on the [official AWS docs page here](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey). After that we specify the provisioned throughput which specifies the maximum number of reads or writes consumed per second before DynamoDB returns a `ThrottlingException`. Read more about this on [this page](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html).
+In the above code, we have defined the structure of our table. We have specified that it will have two attributes, `StudentId` of type number ('N') and `Subject` of type string ('S'). We also specify the key schema or primary key which will uniquely identify each element. `StudentId` is a partition key (aka hash key) and `Subject` is a sort key (aka range key). In short, this means that each item is uniquely identified by the combination of these two keys. For our table, this means we can have multiple items with the same student id but each student can only be enrolled in a particular subject once. So the combination of student id and the subject is always unique. Read more about this on the [official AWS docs page here](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey). After that, we specify the provisioned throughput which specifies the maximum number of reads or writes consumed per second before DynamoDB returns a `ThrottlingException`. Read more about this on [this page](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html).
 
 Now we can call this function from our main function and pass in the DynamoDB client we created as an argument.
 
 ### Populating the table
-Now lets populate the students table with some fake data. To do this, we will write another function that will take the DynamoDB client as a argument.
+Now let's populate the students table with some fake data. To do this, we will write another function that will take the DynamoDB client as an argument.
 
 The following imports were used in this function:
 ```go
@@ -170,7 +170,7 @@ func populateDb(svc *dynamodb.DynamoDB) {
 The above code will populate our database with 99 records. We have first defined a struct called `Item` that specifies the structure of our table and what attributes we have. Then we just go in a loop and add data. We create an object of the type `Item` and pass it through the `MarshalMap` function. All this function will do is convert our object of `Item` type to a format that DynamoDB APIs can operate with. This is the type that `MarshalMap` returns: `(map[string]*dynamodb.AttributeValue, error)`. Once that is done, we call the `PutItemInput` function to add this entry to our database. We specify the Item which is the data that we put and then the table name we put this data into.
 
 ### Retrieving all Data from Localstack
-Now lets write a script to retrieve all the data we added. Similar to the other functions this will also take in the DynamoDB client as an argument. This function would return an array of objects where each object is an entry from our database, so we have to define a return type as well.
+Now let's write a script to retrieve all the data we added. Similar to the other functions this will also take in the DynamoDB client as an argument. This function would return an array of objects where each object is an entry from our database, so we have to define a return type as well.
 
 The following imports were used:
 ```go
@@ -190,7 +190,7 @@ type Item struct {
 	Subject   string
 }
 ```
-Our function would return an array of objects which are of the type `Item`. Now, this struct is exactly the same as the struct used in the function `populateDb`. We can declare this struct at a global scope and use the same one in both places.
+Our function would return an array of objects which are of the type `Item`. Now, this struct is the same as the struct used in the function `populateDb`. We can declare this struct at a global scope and use the same one in both places.
 
 The function would look something like this:
 ```go
@@ -262,12 +262,12 @@ items := []Item{}
 ``` 
 For more information on this, check out these official doc pages: [Namelist](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/expression/#NamesList), [Projection Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.ProjectionExpressions.html)
 
-After that we build the builder, we specify the projection builder using the `WithProjection` function. The expressions package also has methods like `WithCondition`, `WithFilter`, etc that can be used to add other expressions to our builder. Read more about them here in the [`Builder` type's documentation page](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/expression/#Builder).
+After that, we build the builder, and we specify the projection builder using the `WithProjection` function. The expressions package also has methods like `WithCondition`, `WithFilter`, etc that can be used to add other expressions to our builder. Read more about them here on the [`Builder` type's documentation page](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/expression/#Builder).
 
-We then specify the `ScanInput` parameters for the expression and table name [[docs about `ScanInput`](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/#ScanInput)]. Now, we use the `ScanPages` function to retrieve all the data from our table. We could have used just the `Scan` function as well for this, but `Scan` only returns a maximum of 1MB of data at a time. Our data is surely less that 1MB and `Scan` would have worked fine, but for this example lets just assume the data is more than 1MB. What `ScanPages` does is that it iterates over the pages of a scan operation, where each page being 1MB of data or less for the last page, calling the function `"fn"` specified in the second argument with the response data for each page. Basically, `fn` is called with a chunk of data, and when it's called again the data it gets starts from where the first chunk ended. This will stop iterating when `fn` returns false. So in our case, it will iterate for three pages [[docs for `ScanPages`](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/#DynamoDB.ScanPages)]. Inside of the function, we are just grabbing all the items for that page, iterating over them, converting them to our desired format and then appending them to a slice(or a dynamic array). We'll then just return this data in the end.
+We then specify the `ScanInput` parameters for the expression and table name [[docs about `ScanInput`](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/#ScanInput)]. Now, we use the `ScanPages` function to retrieve all the data from our table. We could have used just the `Scan` function as well for this, but `Scan` only returns a maximum of 1MB of data at a time. Our data is surely less than 1MB and `Scan` would have worked fine, but for this example, let's just assume the data is more than 1MB. What `ScanPages` does is that it iterates over the pages of a scan operation, where each page is 1MB of data or less for the last page, calling the function `"fn"` specified in the second argument with the response data for each page. Basically, `fn` is called with a chunk of data, and when it's called again the data it gets starts from where the first chunk ended. This will stop iterating when `fn` returns false. So in our case, it will iterate for three pages [[docs for `ScanPages`](https://docs.aws.amazon.com/sdk-for-go/api/service/dynamodb/#DynamoDB.ScanPages)]. Inside of the function, we are just grabbing all the items for that page, iterating over them, converting them to our desired format and then appending them to a slice(or a dynamic array). We'll then just return this data in the end.
 
 ### Conclusion
-In this post, we setup an offline mock AWS environment using Localstack. We then coded three functions in go using the AWS SDK to create a table in DynamoDB inside of our Localstack environment, populate it and retrieve all the data from it. We can call these three functions from the main funtion. These were just some demo scripts that we made today but we can code any thing we would for AWS on Localstack. Even for the CLI, we can use awslocal the same way we would use the AWS CLI. In future, I would like to explore creating an automated testing environment using Localstack. 
+In this post, we set up an offline mock AWS environment using Localstack. We then coded three functions in go using the AWS SDK to create a table in DynamoDB inside of our Localstack environment, populate it and retrieve all the data from it. We can call these three functions from the main function. These were just some demo scripts that we made today but we can code anything we would for AWS on Localstack. Even for the CLI, we can use awslocal the same way we would use the AWS CLI. In future, I would like to explore creating an automated testing environment using Localstack. 
 
 For this post, I've tried my best to explain the important points but I surely might have missed some and made some mistakes as well. Feel free to leave a comment or contact me regarding questions, suggestions, any errors in the post or anything you want to discuss. I have also tried to link all the relevant pages that might be helpful.
 

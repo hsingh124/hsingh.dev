@@ -2,20 +2,3 @@ baseURL = 'https://www.harpreetsingh.dev/'
 languageCode = 'en-us'
 title = 'harpreetsingh.dev'
 
-[menu]
-[[menu.main]]
-  name = 'Home'
-  url = '/'
-  weight = 1
-[[menu.main]]
-  name = 'Posts'
-  url = '/posts/'
-  weight = 2
-[[menu.main]]
-  name = 'Projects'
-  url = '/projects/'
-  weight = 3
-[[menu.main]]
-  name = 'Tags'
-  url = '/tags/'
-  weight = 4
