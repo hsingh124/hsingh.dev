@@ -3,6 +3,7 @@ title: "How I'm debugging my chrome extension"
 date: 2022-10-18T10:45:09+13:00
 tags: ['Frontend']
 summary: "This is a short post where I share how I debug my chrome extension using webpack development mode. Nothing too fancy here, just something I didn't know about so thought might share it."
+draft: true
 ---
 
 I've been working on a chrome extension for some time. It's called Note it Down and is a note taking chrome extension. It basically lets you take notes on any webpage on any selected text and provides a dashboard to manage all the notes. One of the main issues I encountered while working on this was debugging. Initially, I was just using logging to debug but as my codebase got larger it became much more difficult and time consuming to just use logging. I also couldn’t find any way to step through a chrome extension’s code and debug it.
