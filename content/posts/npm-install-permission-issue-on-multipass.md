@@ -1,7 +1,7 @@
 ---
 title: "Npm Install Permission Issue on Multipass"
 date: 2023-09-03T15:48:38+12:00
-summary: "This post describes an issue I encountered while doing npm install on multipass and what information I found about it."
+summary: "In this post I'm sharing my experience using Multipass on my Apple Silicon Mac to upgrade Node.js within a project. I encountered a permission error while using npm install, which led me to a solution involving adjusting maxfiles limits, and I've documented the process with helpful resources."
 ---
 
 I was working on upgrading the versions of some legacy software systems. As a part of this, I had to upgrade the node js version in a project. I use an M2 Macbook Pro and wanted to run docker through a virtual machine on it, so my tool of choice was multipass. I was running the LTS ubuntu on multipass and installed a docker VM through it. You can follow this guide to set it up: https://multipass.run/docs/docker-tutorial. I emulated the server environment in docker, the only difference being that I was using LTS node and npm versions. When I ran `npm install`, I was getting a permission error:
