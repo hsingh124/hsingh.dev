@@ -1,5 +1,5 @@
 ---
-title: "Npm Install Permission Issue on Multipass"
+title: "Resolving npm install Permission Issues on Multipass"
 date: 2023-09-03T15:48:38+12:00
 summary: "In this post I'm sharing my experience using Multipass on my Apple Silicon Mac to upgrade Node.js within a project. I encountered a permission error while using npm install, which led me to a solution involving adjusting maxfiles limits, and I've documented the process with helpful resources."
 ---
