@@ -4,7 +4,7 @@ date: 2023-09-03T15:48:38+12:00
 summary: "In this post I'm sharing my experience using Multipass on my Apple Silicon Mac to upgrade Node.js within a project. I encountered a permission error while using npm install, which led me to a solution involving adjusting maxfiles limits, and I've documented the process with helpful resources."
 ---
 
-I was in the midst of upgrading some legacy software systems, and part of this endeavor involved upgrading the Node.js version within a specific project. I was using an M2 MacBook Pro and intended to run Docker through a virtual machine My tool of choice for this task was Multipass. I set up an LTS Ubuntu instance on Multipass and proceeded to install a Docker VM within it. You can refer to this guide for a step-by-step setup: [Running a container with the Docker blueprint in Multipass](https://multipass.run/docs/docker-tutorial).
+I was in the midst of upgrading some legacy software systems, and part of this endeavor involved upgrading the Node.js version within a specific project. I was using an M2 MacBook Pro and intended to run Docker through a virtual machine. My tool of choice for this task was Multipass. I set up an LTS Ubuntu instance on Multipass and proceeded to install a Docker VM within it. You can refer to this guide for a step-by-step setup: [Running a container with the Docker blueprint in Multipass](https://multipass.run/docs/docker-tutorial).
 
 I successfully emulated the server environment in Docker, with the only difference being the utilization of LTS Node and npm versions. However, as I executed the `npm install` command, I encountered this permission error:
 ```sh
