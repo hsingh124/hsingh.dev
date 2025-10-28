@@ -2,6 +2,7 @@
 title: "Distributed Map Reduce implementation in Go"
 date: 2023-06-24T01:52:36+12:00
 summary: "This is my implementation for a distributed Map Reduce system developed in Go. I developed this as a part of the MIT 6.5840 (Distributed Systems) course which I was self studying online."
+draft: true
 ---
 
 I recently started the MIT Distributed Systems course. The course materials are freely available online at [pdos.csail.mit.edu/6.824](https://pdos.csail.mit.edu/6.824/). In this blog post, I'll discuss my implementation of the first lab, which focuses on building a distributed Map Reduce system using Go.
