@@ -2,3 +2,11 @@ baseURL = 'https://www.harpreetsingh.dev/'
 languageCode = 'en-us'
 title = 'harpreetsingh.dev'
 
+[outputFormats.SearchJSON]
+  name = "SearchJSON"
+  mediaType = "application/json"
+  isHTML = false
+  baseName = "search-index"
+
+[outputs]
+  home = ["HTML", "RSS", "SearchJSON"]

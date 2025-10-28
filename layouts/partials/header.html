@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="{{ "css/style.css" | relURL }}" />
         <link rel="icon" type="image/x-icon" href="{{ "favicon/favicon.ico" | relURL }}">
         <script async src="https://analytics.umami.is/script.js" data-website-id="d40a5a25-c7f2-4424-8396-3bcb3be693c8"></script>
+        <script src="{{ "js/search.js" | relURL }}" defer></script>
     </head>
 
     <body>
@@ -22,4 +23,11 @@
                 <a href="https://www.linkedin.com/in/hsingh124/">LinkedIn</a>
             </div>
         </div>
+        
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search posts..." class="search-input" autocomplete="off">
+            <div id="search-results" class="search-results"></div>
+        </div>
+
         <div class="page">
